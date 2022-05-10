@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/ui/components/circulo_espera.dart';
 
 class ProfessoresPage extends StatefulWidget {
@@ -52,5 +53,8 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
     );
   }
 
-  void _cadastroProfessor() {}
+  void _cadastroProfessor({Professor? professor}) async {
+    await Navigator.push(context, MaterialPageRoute(
+        builder: (context)=> CadProfessorPage()));
+  }
 }
