@@ -7,7 +7,7 @@ const sqlCreateTurma = ''' CREATE TABLE $turmaTabela (
     $turmaRegistro INTEGER PRIMARY KEY AUTOINCREMENT,
     $turmaNome TEXT,
     $turmaDataInicio TEXT,
-    $turmaDataTermino TEXT,
+    $turmaDataTermino TEXT
     ) ''';
 
 class TurmaHelper {

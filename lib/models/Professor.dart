@@ -12,8 +12,8 @@ class Professor {
   int? registro;
   String nome;
   String cpf;
-  DateTime dataNascimento;
-  DateTime dataAdesao;
+  String dataNascimento;
+  String dataAdesao;
   Turma turma;
 
   Professor(
@@ -29,8 +29,8 @@ class Professor {
         nome: map[turmaNome],
         registro: int.tryParse(map[professorRegistro].toString()),
         cpf: map[professorCpf],
-        dataNascimento: DateTime.parse(map[professorDataNasc].toString()),
-        dataAdesao: DateTime.parse(map[professorDataAdesao].toString()),
+        dataNascimento: map[professorDataNasc],
+        dataAdesao: map[professorDataAdesao],
         turma: turma);
   }
 
@@ -40,7 +40,7 @@ class Professor {
       professorNome: nome,
       professorDataNasc: dataNascimento,
       professorDataAdesao: dataAdesao,
-      professorTurma: turma
+      professorTurma: turma.registro
     };
   }
 }

@@ -11,6 +11,7 @@ const sqlCreateAluno = ''' CREATE TABLE $alunoTabela (
     $alunoCpf TEXT,
     $alunoDataNasc TEXT,
     $alunoDataMatri TEXT,
+    $alunoTurma INTEGER,
     FOREIGN KEY($alunoTurma) REFERENCES $turmaTabela($turmaRegistro)
     ) ''';
 

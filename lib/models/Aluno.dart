@@ -12,8 +12,8 @@ class Aluno {
   int? ra;
   String nome;
   String cpf;
-  DateTime dataNascimento;
-  DateTime dataMatricula;
+  String dataNascimento;
+  String dataMatricula;
   Turma turma;
 
   Aluno(
@@ -29,8 +29,8 @@ class Aluno {
         nome: map[alunoNome],
         ra: int.tryParse(map[alunoRa].toString()),
         cpf: map[alunoCpf],
-        dataNascimento: DateTime.parse(map[alunoDataNasc].toString()),
-        dataMatricula: DateTime.parse(map[alunoDataMatri].toString()),
+        dataNascimento: map[alunoDataNasc],
+        dataMatricula: map[alunoDataMatri],
         turma: turma);
   }
 
@@ -41,7 +41,7 @@ class Aluno {
       alunoCpf: cpf,
       alunoDataNasc: dataNascimento,
       alunoDataMatri: dataMatricula,
-      alunoTurma: turma
+      alunoTurma: turma.registro
     };
   }
 }

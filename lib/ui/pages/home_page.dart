@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'pages.dart';
+import 'package:notas_frequencia_flutter/datasources/datasources.dart';
+import 'package:notas_frequencia_flutter/models/Turma.dart';
+import 'package:notas_frequencia_flutter/ui/pages/pages.dart';
+import 'package:notas_frequencia_flutter/ui/pages/turma/cadastro_turma_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -9,69 +12,72 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _turmaHelper = TurmaHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Controle notas e frequências'),
+        title: const Text('Turmas'),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.list_outlined),
-            title: const Text(
-              'Professores',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 24),
-            ),
-            onTap: _abrirListagemProfessores,
-          ),
-          ListTile(
-            leading: const Icon(Icons.list_outlined),
-            title: const Text(
-              'Alunos',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 24),
-            ),
-            onTap: _abrirListagemAlunos,
-          ),
-          ListTile(
-            leading: const Icon(Icons.list_outlined),
-            title: const Text(
-              'Disciplinas',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 24),
-            ),
-            onTap: _abrirListagemDisciplinas,
-          ),
-          ListTile(
-            leading: const Icon(Icons.list_outlined),
-            title: const Text(
-              'Turmas',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 24),
-            ),
-            onTap: _abrirListagemTurmas,
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: _abrirTelaCadastro,
+      ),
+      body: FutureBuilder(
+        future: _turmaHelper.findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator();
+            default:
+              if (snapshot.hasError) {
+                return Text('Erro:' '${snapshot.error}');
+              }
+              return _criarLista(snapshot.data as List<Turma>);
+          }
+        },
       ),
     );
   }
 
-  void _abrirListagemProfessores() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfessoresPage(),));
+  Widget _criarLista(List<Turma> turmas) {
+    return ListView.builder(
+        padding: const EdgeInsets.all(4),
+        itemCount: turmas.length,
+        itemBuilder: (context, index) {
+          return _criarItemLista(turmas[index]);
+        });
   }
 
-  void _abrirListagemAlunos() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const AlunosPage(),));
+  Widget _criarItemLista(Turma turma) {
+    return GestureDetector(
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            turma.nome,
+            style: const TextStyle(fontSize: 28),
+          ),
+        ),
+      ),
+      onTap: () => _abrirPaginaTurma(turma),
+      onLongPress: () => _abrirTelaCadastro(turma: turma),
+    );
   }
 
-  void _abrirListagemTurmas() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const TurmasPage(),));
+  void _abrirTelaCadastro({Turma? turma}) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CadastroTurmaPage(turma: turma)));
+
+    setState(() {});
   }
 
-  void _abrirListagemDisciplinas() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const DisciplinasPage(),));
+  void _abrirPaginaTurma(Turma turma) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TurmaPage(turma)));
   }
 }

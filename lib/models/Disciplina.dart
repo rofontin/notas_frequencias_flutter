@@ -31,7 +31,7 @@ class Disciplina {
       disciplinaRegistro: registro,
       disciplinaNome: nome,
       disciplinaCargaHoraria: cargaHoraria,
-      disciplinaProfessor: professor
+      disciplinaProfessor: professor.registro
     };
   }
 }

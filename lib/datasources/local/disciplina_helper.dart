@@ -9,6 +9,7 @@ const sqlCreateDisciplina = ''' CREATE TABLE $disciplinaTabela (
     $disciplinaRegistro INTEGER PRIMARY KEY AUTOINCREMENT,
     $disciplinaNome TEXT,
     $disciplinaCargaHoraria TEXT,
+    $disciplinaProfessor INTEGER,
     FOREIGN KEY($disciplinaProfessor) REFERENCES $professorTabela($professorRegistro)
     ) ''';
 

@@ -11,6 +11,7 @@ const sqlCreateProfessor = ''' CREATE TABLE $professorTabela (
     $professorCpf TEXT,
     $professorDataNasc TEXT,
     $professorDataAdesao TEXT,
+    $professorTurma INTEGER,
     FOREIGN KEY($professorTurma) REFERENCES $turmaTabela($turmaRegistro)
     ) ''';
 

@@ -7,8 +7,8 @@ const turmaDataTermino = 'dataTermino';
 class Turma {
   int? registro;
   String nome;
-  DateTime dataInicio;
-  DateTime dataTermino;
+  String dataInicio;
+  String dataTermino;
 
   Turma(
       {this.registro,
@@ -20,8 +20,8 @@ class Turma {
     return Turma(
         nome: map[turmaNome],
         registro: int.tryParse(map[turmaRegistro].toString()),
-        dataInicio: DateTime.parse(map[turmaDataInicio].toString()),
-        dataTermino: DateTime.parse(map[turmaDataTermino].toString()));
+        dataInicio: map[turmaDataInicio],
+        dataTermino: map[turmaDataTermino]);
   }
 
   Map<String, dynamic> toMap() {
