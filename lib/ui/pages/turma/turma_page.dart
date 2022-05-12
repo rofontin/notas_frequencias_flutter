@@ -40,6 +40,15 @@ class _TurmaPageState extends State<TurmaPage> {
             ),
             onTap:() => _abrirListagemAlunos(widget.turma),
           ),
+          ListTile(
+            leading: const Icon(Icons.list_outlined),
+            title: const Text(
+              'Disciplinas',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 24),
+            ),
+            onTap:() => _abrirListagemDisciplinas(widget.turma),
+          ),
         ],
       ),
     );
@@ -53,5 +62,10 @@ class _TurmaPageState extends State<TurmaPage> {
   void _abrirListagemAlunos(Turma turma) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AlunosPage(turma)));
+  }
+
+  void _abrirListagemDisciplinas(Turma turma) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DisciplinasPage(turma)));
   }
 }

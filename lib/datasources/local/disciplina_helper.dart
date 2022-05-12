@@ -2,6 +2,7 @@ import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/datasources/local/banco_dados.dart';
 import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
+import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/utils/utils.dart';
 
@@ -9,7 +10,9 @@ const sqlCreateDisciplina = ''' CREATE TABLE $disciplinaTabela (
     $disciplinaRegistro INTEGER PRIMARY KEY AUTOINCREMENT,
     $disciplinaNome TEXT,
     $disciplinaCargaHoraria TEXT,
+    $disciplinaTurma INTEGER,
     $disciplinaProfessor INTEGER,
+    FOREIGN KEY($disciplinaTurma) REFERENCES $turmaTabela($turmaRegistro),
     FOREIGN KEY($disciplinaProfessor) REFERENCES $professorTabela($professorRegistro)
     ) ''';
 
@@ -34,16 +37,21 @@ class DisciplinaHelper {
 
   Future<Disciplina?> findDisciplina(int registro) async {
     Database db = await BancoDados().db;
-
     List dados = await db.query(disciplinaTabela,
         where: '$disciplinaRegistro = ?', whereArgs: [registro]);
 
     if (dados.isNotEmpty) {
-      int registroProfessor =
-          int.parse(dados.first[disciplinaProfessor].toString());
-      Professor professor =
-          (await ProfessorHelper().findProfessor(registroProfessor))!;
-      return Disciplina.fromMap(dados.first, professor);
+      int registroTurma = int.parse(dados.first[disciplinaTurma].toString());
+      Turma turma = (await TurmaHelper().findTurma(registroTurma))!;
+
+      int? registroProfessor =
+          int.tryParse(dados.first[disciplinaProfessor].toString());
+
+      Professor? professor;
+      if (registroProfessor != null) {
+        professor = (await ProfessorHelper().findProfessor(registroProfessor));
+      }
+      return Disciplina.fromMap(dados.first, turma, professor: professor);
     }
 
     return null;
@@ -57,18 +65,17 @@ class DisciplinaHelper {
         0;
   }
 
-  Future<List<Disciplina>> getByTurma(int registroProfessor) async {
-    Professor? professor =
-        await ProfessorHelper().findProfessor(registroProfessor);
+  Future<List<Disciplina>> getByTurma(int registroTurma) async {
+    Turma? turma = await TurmaHelper().findTurma(registroTurma);
 
-    if (professor != null) {
+    if (turma != null) {
       Database db = await BancoDados().db;
 
       List dados = await db.query(disciplinaTabela,
-          where: '$disciplinaProfessor = ?',
-          whereArgs: [registroProfessor],
+          where: '$disciplinaTurma = ?',
+          whereArgs: [registroTurma],
           orderBy: disciplinaNome);
-      return dados.map((e) => Disciplina.fromMap(e, professor)).toList();
+      return dados.map((e) => Disciplina.fromMap(e, turma)).toList();
     }
 
     return [];
