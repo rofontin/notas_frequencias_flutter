@@ -33,7 +33,7 @@ class TurmaHelper {
     Database db = await BancoDados().db;
 
     List dados = await db.query(turmaTabela,
-        columns: [turmaRegistro, turmaNome],
+        columns: [turmaRegistro, turmaNome, turmaDataInicio, turmaDataTermino],
         where: '$turmaRegistro = ?',
         whereArgs: [registro]);
 

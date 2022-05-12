@@ -37,6 +37,7 @@ class Professor {
   Map<String, dynamic> toMap() {
     return {
       professorRegistro: registro,
+      professorCpf: cpf,
       professorNome: nome,
       professorDataNasc: dataNascimento,
       professorDataAdesao: dataAdesao,
