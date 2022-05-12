@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/pages/aluno/alunos_page.dart';
+import 'package:notas_frequencia_flutter/ui/pages/pages.dart';
 
 class TurmaPage extends StatefulWidget {
   final Turma turma;
@@ -44,7 +45,10 @@ class _TurmaPageState extends State<TurmaPage> {
     );
   }
 
-  void _abrirListagemProfessores(Turma turma) {}
+  void _abrirListagemProfessores(Turma turma) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ProfessoresPage(turma: turma,)));
+  }
 
   void _abrirListagemAlunos(Turma turma) {
     Navigator.push(

@@ -20,7 +20,7 @@ class _AlunosPageState extends State<AlunosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.turma.nome),
+        title: Text(widget.turma.nome+" - Alunos"),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
