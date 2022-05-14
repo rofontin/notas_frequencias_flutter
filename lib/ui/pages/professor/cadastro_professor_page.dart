@@ -9,7 +9,8 @@ class CadastroProfessorPage extends StatefulWidget {
   final Professor? professor;
   final Turma turma;
 
-  const CadastroProfessorPage({Key? key, this.professor,required this.turma}) : super(key: key);
+  const CadastroProfessorPage({Key? key, this.professor, required this.turma})
+      : super(key: key);
 
   @override
   State<CadastroProfessorPage> createState() => _CadastroProfessorPageState();
@@ -38,8 +39,19 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome do Professor"),
-          CampoTexto(controller: _cpfController, texto: "CPF"),
+          TextField(
+              controller: _nomeController,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.account_circle),
+                labelText: 'Nome Professor',
+              )),
+          TextField(
+              controller: _cpfController,
+              decoration: const InputDecoration(
+                icon: Icon(
+                    Icons.picture_in_picture_alt_outlined),
+                labelText: 'CPF',
+              )),
           CampoData(
               controller: _dataNascimentoController,
               texto: "Data Nascimento",
@@ -50,7 +62,8 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
               texto: "Data Adesão",
               inicio: 2000,
               fim: 2100),
-          ElevatedButton(onPressed: _salvarProfessor, child: const Text('Salvar')),
+          ElevatedButton(
+              onPressed: _salvarProfessor, child: const Text('Salvar')),
         ],
       ),
     );
@@ -62,11 +75,12 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
       _professorHelper.alterar(widget.professor!);
     } else {
       _professorHelper.inserir(Professor(
-          nome: _nomeController.text,
-          cpf: _cpfController.text,
-          dataNascimento: _dataNascimentoController.text,
-          dataAdesao: _dataAdesaoController.text,
-          turma: widget.turma,));
+        nome: _nomeController.text,
+        cpf: _cpfController.text,
+        dataNascimento: _dataNascimentoController.text,
+        dataAdesao: _dataAdesaoController.text,
+        turma: widget.turma,
+      ));
     }
     Navigator.pop(context);
   }
