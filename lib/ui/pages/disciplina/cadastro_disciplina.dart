@@ -4,6 +4,7 @@ import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/components/campo_texto.dart';
+import 'package:notas_frequencia_flutter/ui/pages/disciplina/dropDownMenu_professor.dart';
 
 class CadastroDisciplinaPage extends StatefulWidget {
   final Turma turma;
@@ -21,17 +22,18 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
   final _professorHelper = ProfessorHelper();
   final _nomeController = TextEditingController();
   final _cargaHorarioController = TextEditingController();
+  Future<List<Professor>>? _listProfessor;
   Professor? _professorSelecionado;
-  var _campo;
 
   @override
   void initState() {
     super.initState();
+    _listProfessor = _professorHelper.getByTurma(widget.turma.registro ?? 0);
 
     if (widget.disciplina != null) {
       _nomeController.text = widget.disciplina!.nome;
       _cargaHorarioController.text = widget.disciplina!.cargaHoraria.toString();
-      _campo = widget.disciplina!.professor?.nome;
+      _professorSelecionado = widget.disciplina!.professor;
     }
   }
 
@@ -48,21 +50,7 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
               controller: _cargaHorarioController,
               texto: "Carga horária",
               teclado: TextInputType.number),
-          FutureBuilder(
-            future: _professorHelper.getByTurma(widget.turma.registro ?? 0),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return const CircularProgressIndicator();
-                default:
-                  if (snapshot.hasError) {
-                    return Text('Erro:' '${snapshot.error}');
-                  }
-                  return getDrop(snapshot.data as List<Professor>);
-              }
-            },
-          ),
+          DropDownMenuProfessor(_listProfessor!),
           ElevatedButton(
               onPressed: _salvarDisciplina, child: const Text('Salvar'))
         ],
@@ -71,14 +59,17 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
   }
 
   Widget getDrop(List<Professor> professores) {
-    _professorSelecionado ??= professores[0];
+    if (professores.isNotEmpty) {
+      _professorSelecionado ??= professores[0];
+    }
 
-    var items = professores.map((item) {
-      return DropdownMenuItem<Professor>(
-        child: Text(item.nome),
-        value: item,
-      );
-    }).toList();
+    var items = professores
+        .map((item) =>
+        DropdownMenuItem<Professor>(
+          child: Text(item.nome),
+          value: item,
+        ))
+        .toList();
 
     return DropdownButton<Professor>(
       items: items,
