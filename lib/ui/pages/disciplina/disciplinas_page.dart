@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/models/Aluno.dart';
 import 'package:notas_frequencia_flutter/models/Disciplina.dart';
+import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/pages/aluno/cadastro_aluno_page.dart';
 import 'package:notas_frequencia_flutter/ui/pages/disciplina/cadastro_disciplina.dart';

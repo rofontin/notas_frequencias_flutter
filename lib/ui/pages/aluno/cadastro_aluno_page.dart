@@ -4,6 +4,8 @@ import 'package:notas_frequencia_flutter/models/Aluno.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/components/campo_data.dart';
 import 'package:notas_frequencia_flutter/ui/components/campo_texto.dart';
+import 'package:notas_frequencia_flutter/ui/components/campo_texto_mask.dart';
+import 'package:notas_frequencia_flutter/ui/utils/mask.dart';
 
 class CadastroAlunoPage extends StatefulWidget {
   final Turma turma;
@@ -39,7 +41,12 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
       body: ListView(
         children: [
           CampoTexto(controller: _nomeController, texto: "Nome do Aluno"),
-          CampoTexto(controller: _cpfController, texto: "CPF"),
+          CampoTextoMask(
+            controller: _cpfController,
+            texto: "CPF",
+            teclado: TextInputType.number,
+            mask: Mask.cpf(),
+          ),
           CampoData(
               controller: _dataNascimentoController,
               texto: "Data Nascimento",

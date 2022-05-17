@@ -4,7 +4,6 @@ import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/components/campo_texto.dart';
-import 'package:notas_frequencia_flutter/ui/pages/disciplina/dropDownMenu_professor.dart';
 
 class CadastroDisciplinaPage extends StatefulWidget {
   final Turma turma;
@@ -50,7 +49,15 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
               controller: _cargaHorarioController,
               texto: "Carga horária",
               teclado: TextInputType.number),
-          DropDownMenuProfessor(_listProfessor!),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Container(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all()),
+                child: _getDropdownButtonHideUnderline()),
+          ),
           ElevatedButton(
               onPressed: _salvarDisciplina, child: const Text('Salvar'))
         ],
@@ -58,23 +65,40 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
     );
   }
 
-  Widget getDrop(List<Professor> professores) {
-    if (professores.isNotEmpty) {
-      _professorSelecionado ??= professores[0];
-    }
-
-    var items = professores
-        .map((item) =>
-        DropdownMenuItem<Professor>(
-          child: Text(item.nome),
-          value: item,
-        ))
-        .toList();
-
-    return DropdownButton<Professor>(
-      items: items,
-      onChanged: (newVal) => setState(() => _professorSelecionado = newVal!),
-      value: _professorSelecionado,
+  Widget _getDropdownButtonHideUnderline() {
+    return DropdownButtonHideUnderline(
+      child: FutureBuilder<List<Professor>>(
+        future: _listProfessor,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator();
+            default:
+              if (snapshot.hasError) {
+                return Text('Erro:' '${snapshot.error}');
+              }
+              return DropdownButton(
+                value: _professorSelecionado,
+                icon: const Icon(Icons.arrow_drop_down),
+                iconSize: 30,
+                elevation: 16,
+                onChanged: (newValue) {
+                  setState(() {
+                    _professorSelecionado = newValue as Professor?;
+                  });
+                },
+                items: snapshot.data!
+                    .map<DropdownMenuItem<Professor>>((Professor value) {
+                  return DropdownMenuItem<Professor>(
+                    value: value,
+                    child: Text(value.nome),
+                  );
+                }).toList(),
+              );
+          }
+        },
+      ),
     );
   }
 
