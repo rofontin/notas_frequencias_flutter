@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
-import 'package:notas_frequencia_flutter/ui/pages/aluno/alunos_page.dart';
 import 'package:notas_frequencia_flutter/ui/pages/pages.dart';
 
-class TurmaPage extends StatefulWidget {
+class RelacionadosTurmaPage extends StatefulWidget {
   final Turma turma;
 
-  const TurmaPage(this.turma, {Key? key}) : super(key: key);
+  const RelacionadosTurmaPage(this.turma, {Key? key}) : super(key: key);
 
   @override
-  State<TurmaPage> createState() => _TurmaPageState();
+  State<RelacionadosTurmaPage> createState() => _RelacionadosTurmaPageState();
 }
 
-class _TurmaPageState extends State<TurmaPage> {
+class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Controle notas e frequências'),
+        title: Text('Turma de '+ widget.turma.nome),
       ),
       body: ListView(
         children: [
