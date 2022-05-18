@@ -59,11 +59,19 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
   Widget _criarItemLista(Professor professor) {
     return GestureDetector(
       child: Card(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16),
-          child: Text(
-            professor.nome,
-            style: const TextStyle(fontSize: 28),
+          child:Column(
+              children:<Widget>[Text(
+                professor.nome,
+                style: const TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+                Text(
+                  "Data de Adesão"+professor.dataAdesao,
+                  style: const TextStyle(fontSize: 15),
+                  textAlign: TextAlign.center,
+                )],
           ),
         ),
       ),

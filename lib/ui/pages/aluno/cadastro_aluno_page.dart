@@ -40,8 +40,9 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome do Aluno"),
+          CampoTexto(controller: _nomeController, texto: "Nome do Aluno", icone: Icon(Icons.account_circle),),
           CampoTextoMask(
+            icone: Icon(Icons.assignment_ind),
             controller: _cpfController,
             texto: "CPF",
             teclado: TextInputType.number,
