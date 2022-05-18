@@ -29,6 +29,9 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
     super.initState();
     if (widget.aluno != null) {
       _nomeController.text = widget.aluno!.nome;
+      _cpfController.text = widget.aluno!.cpf;
+      _dataNascimentoController.text = widget.aluno!.dataNascimento;
+      _dataMatriculaController.text = widget.aluno!.dataMatricula;
     }
   }
 

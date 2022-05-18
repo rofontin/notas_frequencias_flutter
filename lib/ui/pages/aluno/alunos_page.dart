@@ -63,11 +63,20 @@ class _AlunosPageState extends State<AlunosPage> {
   Widget _criarItemLista(Aluno aluno) {
     return GestureDetector(
       child: Card(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16),
-          child: Text(
-            aluno.nome,
-            style: const TextStyle(fontSize: 28),
+          child:Column(
+            children:<Widget>[
+              Text(
+                aluno.nome,
+                style: const TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "Data de Matrícula: "+aluno.dataMatricula,
+                style: const TextStyle(fontSize: 15),
+                textAlign: TextAlign.center,
+              )],
           ),
         ),
       ),
