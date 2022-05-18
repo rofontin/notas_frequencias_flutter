@@ -4,6 +4,9 @@ import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/components/campo_data.dart';
 import 'package:notas_frequencia_flutter/ui/components/campo_texto.dart';
+import 'package:notas_frequencia_flutter/ui/components/campo_texto_mask.dart';
+
+import '../../utils/mask.dart';
 
 class CadastroProfessorPage extends StatefulWidget {
   final Professor? professor;
@@ -28,6 +31,9 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
     super.initState();
     if (widget.professor != null) {
       _nomeController.text = widget.professor!.nome;
+      _cpfController.text = widget.professor!.cpf;
+      _dataNascimentoController.text = widget.professor!.dataNascimento;
+      _dataAdesaoController.text = widget.professor!.dataAdesao;
     }
   }
 
@@ -39,19 +45,14 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
       ),
       body: ListView(
         children: [
-          TextField(
-              controller: _nomeController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Nome Professor',
-              )),
-          TextField(
-              controller: _cpfController,
-              decoration: const InputDecoration(
-                icon: Icon(
-                    Icons.picture_in_picture_alt_outlined),
-                labelText: 'CPF',
-              )),
+          CampoTexto(controller: _nomeController, texto: "Nome do professor", icone: Icon(Icons.account_circle)),
+          CampoTextoMask(
+            icone: Icon(Icons.assignment_ind),
+            controller: _cpfController,
+            texto: "CPF",
+            teclado: TextInputType.number,
+            mask: Mask.cpf(),
+          ),
           CampoData(
               controller: _dataNascimentoController,
               texto: "Data Nascimento",
@@ -72,6 +73,7 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
   void _salvarProfessor() {
     if (widget.professor != null) {
       widget.professor!.nome = _nomeController.text;
+
       _professorHelper.alterar(widget.professor!);
     } else {
       _professorHelper.inserir(Professor(

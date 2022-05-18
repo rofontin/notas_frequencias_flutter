@@ -6,13 +6,14 @@ class CampoTextoMask extends StatelessWidget {
   final String texto;
   final TextInputType teclado;
   final TextInputFormatter mask;
+  final Icon icone;
 
   const CampoTextoMask(
       {required this.controller,
       required this.texto,
       required this.teclado,
       required this.mask,
-      Key? key})
+      Key? key, required this.icone})
       : super(key: key);
 
   @override
@@ -23,8 +24,8 @@ class CampoTextoMask extends StatelessWidget {
         controller: controller,
         keyboardType: teclado,
         decoration: InputDecoration(
+          icon: icone,
           labelText: texto,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         ),
         inputFormatters: [mask],
       ),

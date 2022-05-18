@@ -44,11 +44,12 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome da Disciplina"),
+          CampoTexto(controller: _nomeController, texto: "Nome da Disciplina",icone: Icon(Icons.newspaper)),
           CampoTexto(
               controller: _cargaHorarioController,
               texto: "Carga horária",
-              teclado: TextInputType.number),
+              teclado: TextInputType.number,
+              icone: Icon(Icons.access_time_filled),),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Container(

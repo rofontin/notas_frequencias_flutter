@@ -4,9 +4,10 @@ class CampoTexto extends StatelessWidget {
   final TextEditingController controller;
   final String texto;
   final TextInputType? teclado;
+  final Icon icone;
 
   const CampoTexto(
-      {required this.controller, required this.texto, this.teclado, Key? key})
+      {required this.controller, required this.texto, this.teclado, Key? key, required this.icone})
       : super(key: key);
 
   @override
@@ -17,10 +18,8 @@ class CampoTexto extends StatelessWidget {
         controller: controller,
         keyboardType: teclado ?? TextInputType.text,
         decoration: InputDecoration(
+          icon: icone,
           labelText: texto,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20)
-          ),
         ),
       ),
     );

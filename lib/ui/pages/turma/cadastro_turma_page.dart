@@ -35,7 +35,7 @@ class _CadastroTurmaPageState extends State<CadastroTurmaPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome da Turma"),
+          CampoTexto(controller: _nomeController, texto: "Nome da Turma",icone: Icon(Icons.account_circle)),
           CampoData(
               controller: _dataInicioController,
               texto: "Data início",
