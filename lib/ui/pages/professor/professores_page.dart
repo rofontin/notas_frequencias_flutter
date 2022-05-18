@@ -62,13 +62,14 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
         child: Container(
           padding: const EdgeInsets.all(16),
           child:Column(
-              children:<Widget>[Text(
+              children:<Widget>[
+                Text(
                 professor.nome,
                 style: const TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
                 Text(
-                  "Data de Adesão"+professor.dataAdesao,
+                  "Data de Adesão: "+professor.dataAdesao,
                   style: const TextStyle(fontSize: 15),
                   textAlign: TextAlign.center,
                 )],

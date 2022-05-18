@@ -69,17 +69,26 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
   }
 
   Widget _criarItemLista(Disciplina disciplinas) {
-    return GestureDetector(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            disciplinas.nome,
-            style: const TextStyle(fontSize: 28),
+      return GestureDetector(
+        child: Card(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child:Column(
+              children:<Widget>[
+                Text(
+                  disciplinas.nome,
+                  style: const TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Carga Horária: "+disciplinas.cargaHoraria.toString()+" Horas",
+                  style: const TextStyle(fontSize: 15),
+                  textAlign: TextAlign.center,
+                )],
+            ),
           ),
         ),
-      ),
-      onTap: () => _cadastrarDisciplina(disciplina: disciplinas),
-    );
-  }
+        onTap: () => _cadastrarDisciplina(disciplina: disciplinas),
+      );
+    }
 }
