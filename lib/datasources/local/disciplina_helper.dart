@@ -41,19 +41,8 @@ class DisciplinaHelper {
         where: '$disciplinaRegistro = ?', whereArgs: [registro]);
 
     if (dados.isNotEmpty) {
-      int registroTurma = int.parse(dados.first[disciplinaTurma].toString());
-      Turma turma = (await TurmaHelper().findTurma(registroTurma))!;
-
-      int? registroProfessor =
-          int.tryParse(dados.first[disciplinaProfessor].toString());
-
-      Professor? professor;
-      if (registroProfessor != null) {
-        professor = (await ProfessorHelper().findProfessor(registroProfessor));
-      }
-      return Disciplina.fromMap(dados.first, turma, professor: professor);
+      return Disciplina.fromMap(dados.first);
     }
-
     return null;
   }
 
@@ -66,18 +55,12 @@ class DisciplinaHelper {
   }
 
   Future<List<Disciplina>> getByTurma(int registroTurma) async {
-    Turma? turma = await TurmaHelper().findTurma(registroTurma);
+    Database db = await BancoDados().db;
 
-    if (turma != null) {
-      Database db = await BancoDados().db;
-
-      List dados = await db.query(disciplinaTabela,
-          where: '$disciplinaTurma = ?',
-          whereArgs: [registroTurma],
-          orderBy: disciplinaNome);
-      return dados.map((e) => Disciplina.fromMap(e, turma)).toList();
-    }
-
-    return [];
+    List dados = await db.query(disciplinaTabela,
+        where: '$disciplinaTurma = ?',
+        whereArgs: [registroTurma],
+        orderBy: disciplinaNome);
+    return dados.map((e) => Disciplina.fromMap(e)).toList();
   }
 }

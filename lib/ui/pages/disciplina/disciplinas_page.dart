@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/datasources/datasources.dart';
-import 'package:notas_frequencia_flutter/models/Aluno.dart';
 import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
-import 'package:notas_frequencia_flutter/ui/pages/aluno/cadastro_aluno_page.dart';
 import 'package:notas_frequencia_flutter/ui/pages/disciplina/cadastro_disciplina.dart';
 
 class DisciplinasPage extends StatefulWidget {
@@ -18,6 +16,7 @@ class DisciplinasPage extends StatefulWidget {
 
 class _DisciplinasPageState extends State<DisciplinasPage> {
   final _disciplinaHelper = DisciplinaHelper();
+  final _professorHelper = ProfessorHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +47,18 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
   }
 
   void _cadastrarDisciplina({Disciplina? disciplina}) async {
+    Professor? professor;
+    if (disciplina != null) {
+      professor = await _professorHelper.findProfessor(disciplina.registroProfessor);
+    }
+
     await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => CadastroDisciplinaPage(
                   widget.turma,
                   disciplina: disciplina,
+                  professor: professor,
                 )));
 
     setState(() {});
@@ -73,10 +78,11 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
       child: Card(
         child: Container(
             padding: const EdgeInsets.all(16),
-            child:Row(
+            child: Row(
               children: [
-                const Icon(Icons.my_library_books,size: 40),
-                Padding(padding: const EdgeInsets.only(left: 50),
+                const Icon(Icons.my_library_books, size: 40),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
                   child: Column(
                     children: [
                       Text(
@@ -85,16 +91,17 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "Carga Horária: "+disciplina.cargaHoraria.toString()+" Horas",
+                        "Carga Horária: " +
+                            disciplina.cargaHoraria.toString() +
+                            " Horas",
                         style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       )
                     ],
-                  ),)
-
+                  ),
+                )
               ],
-            )
-        ),
+            )),
       ),
       onTap: () => _cadastrarDisciplina(disciplina: disciplina),
     );

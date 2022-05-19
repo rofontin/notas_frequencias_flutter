@@ -8,8 +8,9 @@ import 'package:notas_frequencia_flutter/ui/components/campo_texto.dart';
 class CadastroDisciplinaPage extends StatefulWidget {
   final Turma turma;
   final Disciplina? disciplina;
+  final Professor? professor;
 
-  const CadastroDisciplinaPage(this.turma, {this.disciplina, Key? key})
+  const CadastroDisciplinaPage(this.turma, {this.disciplina, this.professor, Key? key})
       : super(key: key);
 
   @override
@@ -32,7 +33,7 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
     if (widget.disciplina != null) {
       _nomeController.text = widget.disciplina!.nome;
       _cargaHorarioController.text = widget.disciplina!.cargaHoraria.toString();
-      _professorSelecionado = widget.disciplina!.professor;
+      _professorSelecionado = widget.professor;
     }
   }
 
@@ -44,12 +45,12 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome da Disciplina",icone: Icon(Icons.newspaper)),
+          CampoTexto(controller: _nomeController, texto: "Nome da Disciplina",icone: const Icon(Icons.newspaper)),
           CampoTexto(
               controller: _cargaHorarioController,
               texto: "Carga horária",
               teclado: TextInputType.number,
-              icone: Icon(Icons.access_time_filled),),
+              icone: const Icon(Icons.access_time_filled),),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Container(
@@ -111,8 +112,8 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
       _disciplinaHelper.inserir(Disciplina(
           nome: _nomeController.text,
           cargaHoraria: int.parse(_cargaHorarioController.text),
-          turma: widget.turma,
-          professor: _professorSelecionado));
+          registroTurma: widget.turma.registro!,
+          registroProfessor: _professorSelecionado!.registro!));
     }
     Navigator.pop(context);
   }

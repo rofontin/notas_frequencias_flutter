@@ -27,6 +27,7 @@ class BancoDados {
           await db.execute(sqlCreateAluno);
           await db.execute(sqlCreateProfessor);
           await db.execute(sqlCreateDisciplina);
+          await db.execute(sqlCreateNotaFrequencia);
         });
   }
 

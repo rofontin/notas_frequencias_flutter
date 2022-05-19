@@ -1,6 +1,3 @@
-import 'package:notas_frequencia_flutter/models/Professor.dart';
-import 'package:notas_frequencia_flutter/models/Turma.dart';
-
 const disciplinaTabela = 'tbDisciplina';
 const disciplinaRegistro = 'registro';
 const disciplinaNome = 'nome';
@@ -12,23 +9,23 @@ class Disciplina {
   int? registro;
   String nome;
   int cargaHoraria;
-  Turma turma;
-  Professor? professor;
+  int registroTurma;
+  int registroProfessor;
 
   Disciplina(
       {this.registro,
       required this.nome,
       required this.cargaHoraria,
-      required this.turma,
-      required this.professor});
+      required this.registroTurma,
+      required this.registroProfessor});
 
-  factory Disciplina.fromMap(Map map, Turma turma, {Professor? professor}) {
+  factory Disciplina.fromMap(Map map) {
     return Disciplina(
         nome: map[disciplinaNome],
         registro: int.tryParse(map[disciplinaRegistro].toString()),
         cargaHoraria: int.parse(map[disciplinaCargaHoraria].toString()),
-        turma: turma,
-        professor: professor);
+        registroTurma: int.parse(map[disciplinaTurma].toString()),
+        registroProfessor: int.parse(map[disciplinaProfessor].toString()));
   }
 
   Map<String, dynamic> toMap() {
@@ -36,8 +33,8 @@ class Disciplina {
       disciplinaRegistro: registro,
       disciplinaNome: nome,
       disciplinaCargaHoraria: cargaHoraria,
-      disciplinaTurma: turma.registro,
-      disciplinaProfessor: professor?.registro
+      disciplinaTurma: registroTurma,
+      disciplinaProfessor: registroProfessor
     };
   }
 }
