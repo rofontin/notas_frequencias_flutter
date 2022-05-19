@@ -68,27 +68,35 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
         });
   }
 
-  Widget _criarItemLista(Disciplina disciplinas) {
-      return GestureDetector(
-        child: Card(
-          child: Container(
+  Widget _criarItemLista(Disciplina disciplina) {
+    return GestureDetector(
+      child: Card(
+        child: Container(
             padding: const EdgeInsets.all(16),
-            child:Column(
-              children:<Widget>[
-                Text(
-                  disciplinas.nome,
-                  style: const TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  "Carga Horária: "+disciplinas.cargaHoraria.toString()+" Horas",
-                  style: const TextStyle(fontSize: 15),
-                  textAlign: TextAlign.center,
-                )],
-            ),
-          ),
+            child:Row(
+              children: [
+                const Icon(Icons.my_library_books,size: 40),
+                Padding(padding: const EdgeInsets.only(left: 50),
+                  child: Column(
+                    children: [
+                      Text(
+                        disciplina.nome,
+                        style: const TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Carga Horária: "+disciplina.cargaHoraria.toString()+" Horas",
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),)
+
+              ],
+            )
         ),
-        onTap: () => _cadastrarDisciplina(disciplina: disciplinas),
-      );
-    }
+      ),
+      onTap: () => _cadastrarDisciplina(disciplina: disciplina),
+    );
+  }
 }

@@ -24,6 +24,8 @@ class _CadastroTurmaPageState extends State<CadastroTurmaPage> {
     super.initState();
     if (widget.turma != null) {
       _nomeController.text = widget.turma!.nome;
+      _dataInicioController.text = widget.turma!.dataInicio;
+      _dataTerminoController.text = widget.turma!.dataTermino;
     }
   }
 

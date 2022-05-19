@@ -64,20 +64,28 @@ class _AlunosPageState extends State<AlunosPage> {
     return GestureDetector(
       child: Card(
         child: Container(
-          padding: const EdgeInsets.all(16),
-          child:Column(
-            children:<Widget>[
-              Text(
-                aluno.nome,
-                style: const TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                "Data de Matrícula: "+aluno.dataMatricula,
-                style: const TextStyle(fontSize: 15),
-                textAlign: TextAlign.center,
-              )],
-          ),
+            padding: const EdgeInsets.all(16),
+            child:Row(
+              children: [
+                const Icon(Icons.account_circle_outlined,size: 40),
+                Padding(padding: const EdgeInsets.only(left: 50),
+                  child: Column(
+                    children: [
+                      Text(
+                        aluno.nome,
+                        style: const TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Data da Matrícula: "+aluno.dataMatricula,
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),)
+
+              ],
+            )
         ),
       ),
       onTap: () => _cadastrarAluno(aluno: aluno),

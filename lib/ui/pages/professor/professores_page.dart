@@ -61,19 +61,27 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
       child: Card(
         child: Container(
           padding: const EdgeInsets.all(16),
-          child:Column(
-              children:<Widget>[
-                Text(
-                professor.nome,
-                style: const TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-                Text(
-                  "Data de Adesão: "+professor.dataAdesao,
-                  style: const TextStyle(fontSize: 15),
-                  textAlign: TextAlign.center,
-                )],
-          ),
+          child:Row(
+            children: [
+              const Icon(Icons.account_circle_outlined,size: 40),
+              Padding(padding: const EdgeInsets.only(left: 50),
+                child: Column(
+                  children: [
+                    Text(
+                      professor.nome,
+                      style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "Data de Adesão: "+professor.dataAdesao,
+                      style: const TextStyle(fontSize: 15),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),)
+
+            ],
+          )
         ),
       ),
       onTap: () => _cadastrarProfessor(professor: professor),

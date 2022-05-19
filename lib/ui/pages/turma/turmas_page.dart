@@ -54,12 +54,29 @@ class _TurmasPageState extends State<TurmasPage> {
   Widget _criarItemLista(Turma turma) {
     return GestureDetector(
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            turma.nome,
-            style: const TextStyle(fontSize: 28),
-          ),
+        child: Container(
+            padding: const EdgeInsets.all(16),
+            child:Row(
+              children: [
+                const Icon(Icons.school,size: 40),
+                Padding(padding: const EdgeInsets.only(left: 50),
+                  child: Column(
+                    children: [
+                      Text(
+                        turma.nome,
+                        style: const TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Data Término: "+turma.dataTermino  ,
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),)
+
+              ],
+            )
         ),
       ),
       onTap: () => _abrirPaginaTurma(turma),
