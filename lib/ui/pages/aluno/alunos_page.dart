@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/models/Aluno.dart';
@@ -64,14 +65,18 @@ class _AlunosPageState extends State<AlunosPage> {
             background: Container(
               alignment: const Alignment(-1, 0),
               color: Colors.blue,
-              child: const Text('Editar Aluno',
-                style: TextStyle(color: Colors.white),),
+              child: const Padding(padding: EdgeInsets.only(left: 20.0),
+              child: Icon(
+                Icons.drive_file_rename_outline_rounded,size: 40,
+              ),)
             ),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Text('Excluir Aluno',
-                style: TextStyle(color: Colors.white),),
+              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+                child: Icon(
+                  Icons.delete,size: 40,
+                ),),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {

@@ -75,16 +75,20 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
             direction: DismissDirection.horizontal,
             child: _criarItemLista(disciplinas[index]),
             background: Container(
-              alignment: const Alignment(-1, 0),
-              color: Colors.blue,
-              child: const Text('Editar Disciplina',
-                style: TextStyle(color: Colors.white),),
+                alignment: const Alignment(-1, 0),
+                color: Colors.blue,
+                child: const Padding(padding: EdgeInsets.only(left: 20.0),
+                  child: Icon(
+                    Icons.drive_file_rename_outline_rounded,size: 40,
+                  ),)
             ),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Text('Excluir Disciplina',
-                style: TextStyle(color: Colors.white),),
+              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+                child: Icon(
+                  Icons.delete,size: 40,
+                ),),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {
