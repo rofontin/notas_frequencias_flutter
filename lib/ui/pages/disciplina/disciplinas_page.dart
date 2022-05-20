@@ -148,7 +148,6 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
               ],
             )),
       ),
-      onTap: () => _cadastrarDisciplina(disciplina: disciplina),
     );
   }
 }

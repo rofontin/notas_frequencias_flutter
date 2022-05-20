@@ -133,7 +133,6 @@ class _AlunosPageState extends State<AlunosPage> {
             )
         ),
       ),
-      onTap: () => _cadastrarAluno(aluno: aluno),
     );
   }
 }
