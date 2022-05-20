@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
+import 'package:notas_frequencia_flutter/ui/components/mensagem_alerta.dart';
 import 'package:notas_frequencia_flutter/ui/pages/professor/cadastro_professor_page.dart';
 
 class ProfessoresPage extends StatefulWidget {
@@ -52,8 +53,52 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
         padding: const EdgeInsets.all(4),
         itemCount: professor.length,
         itemBuilder: (context, index) {
-          return _criarItemLista(professor[index]);
-        });
+          return Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.horizontal,
+            child: _criarItemLista(professor[index]),
+            background: Container(
+              alignment: const Alignment(-1, 0),
+              color: Colors.blue,
+              child: const Text('Editar Professor',
+                style: TextStyle(color: Colors.white),),
+            ),
+            secondaryBackground: Container(
+              alignment: const Alignment(1, 0),
+              color: Colors.red,
+              child: const Text('Excluir Professor',
+                style: TextStyle(color: Colors.white),),
+            ),
+            onDismissed: (DismissDirection direction) {
+              if (direction == DismissDirection.startToEnd) {
+                _cadastrarProfessor(professor: professor[index]);
+              }
+              else if (direction == DismissDirection.endToStart) {
+                _professorHelper.delete(professor[index]);
+              }
+            },
+            confirmDismiss: (DismissDirection direction) async {
+              if (direction == DismissDirection.endToStart) {
+                return await MensagemAlerta.show(
+                    context: context,
+                    titulo: 'Atenção',
+                    texto: 'Deseja excluir este professor?',
+                    botoes: [
+                      TextButton(
+                          child: const Text('Sim'),
+                          onPressed: (){ Navigator.of(context).pop(true); }
+                      ),
+                      ElevatedButton(
+                          child: const Text('Não'),
+                          onPressed: (){ Navigator.of(context).pop(false); }
+                      ),
+                    ]);
+              }
+              return true;
+            },
+          );
+        }
+    );
   }
 
   Widget _criarItemLista(Professor professor) {

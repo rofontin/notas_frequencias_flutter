@@ -28,9 +28,9 @@ class AlunoHelper {
         where: '$alunoRa = ?', whereArgs: [aluno.ra]);
   }
 
-  Future<int> delete(int ra) async {
+  Future<int> delete(Aluno aluno) async {
     Database db = await BancoDados().db;
-    return db.delete(alunoTabela, where: '$alunoRa = ?', whereArgs: [ra]);
+    return db.delete(alunoTabela, where: '$alunoRa = ?', whereArgs: [aluno.ra]);
   }
 
   Future<Aluno?> findAluno(int ra) async {

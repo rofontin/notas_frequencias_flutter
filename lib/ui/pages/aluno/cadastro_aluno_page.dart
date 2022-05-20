@@ -62,9 +62,25 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
               inicio: 2000,
               fim: 2100),
           ElevatedButton(onPressed: _salvarAluno, child: const Text('Salvar')),
+          _criarBotaoExcluir(),
         ],
+
       ),
     );
+  }
+  Widget _criarBotaoExcluir() {
+    if (widget.aluno != null) {
+      return ElevatedButton(
+          onPressed: _excluirAluno,
+          child: const Text('Excluir')
+      );
+    }
+    return Container();
+  }
+
+  void _excluirAluno() {
+    _alunoHelper.delete(widget.aluno!);
+    Navigator.pop(context);
   }
 
   void _salvarAluno() {
