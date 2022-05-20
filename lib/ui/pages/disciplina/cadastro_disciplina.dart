@@ -10,7 +10,8 @@ class CadastroDisciplinaPage extends StatefulWidget {
   final Disciplina? disciplina;
   final Professor? professor;
 
-  const CadastroDisciplinaPage(this.turma, {this.disciplina, this.professor, Key? key})
+  const CadastroDisciplinaPage(this.turma,
+      {this.disciplina, this.professor, Key? key})
       : super(key: key);
 
   @override
@@ -45,12 +46,16 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome da Disciplina",icone: const Icon(Icons.newspaper)),
           CampoTexto(
-              controller: _cargaHorarioController,
-              texto: "Carga horária",
-              teclado: TextInputType.number,
-              icone: const Icon(Icons.access_time_filled),),
+              controller: _nomeController,
+              texto: "Nome da Disciplina",
+              icone: const Icon(Icons.newspaper)),
+          CampoTexto(
+            controller: _cargaHorarioController,
+            texto: "Carga horária",
+            teclado: TextInputType.number,
+            icone: const Icon(Icons.access_time_filled),
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Container(
@@ -65,7 +70,6 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
         ],
       ),
     );
-
   }
 
   Widget _getDropdownButtonHideUnderline() {
@@ -108,6 +112,8 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
   void _salvarDisciplina() {
     if (widget.disciplina != null) {
       widget.disciplina!.nome = _nomeController.text;
+      widget.disciplina!.cargaHoraria = int.parse(_cargaHorarioController.text);
+      widget.disciplina!.registroProfessor = _professorSelecionado!.registro!;
       _disciplinaHelper.alterar(widget.disciplina!);
     } else {
       _disciplinaHelper.inserir(Disciplina(

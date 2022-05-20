@@ -1,4 +1,4 @@
-import 'package:notas_frequencia_flutter/datasources/local/TurmaHelper.dart';
+import 'package:notas_frequencia_flutter/datasources/local/turma_helper.dart';
 import 'package:notas_frequencia_flutter/datasources/local/banco_dados.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';

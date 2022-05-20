@@ -45,7 +45,10 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome do professor", icone: Icon(Icons.account_circle)),
+          CampoTexto(
+              controller: _nomeController,
+              texto: "Nome do professor",
+              icone: Icon(Icons.account_circle)),
           CampoTextoMask(
             icone: Icon(Icons.assignment_ind),
             controller: _cpfController,
@@ -73,7 +76,9 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
   void _salvarProfessor() {
     if (widget.professor != null) {
       widget.professor!.nome = _nomeController.text;
-
+      widget.professor!.cpf = _cpfController.text;
+      widget.professor!.dataNascimento = _dataNascimentoController.text;
+      widget.professor!.dataAdesao = _dataAdesaoController.text;
       _professorHelper.alterar(widget.professor!);
     } else {
       _professorHelper.inserir(Professor(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notas_frequencia_flutter/ui/pages/notafrequencia/notafrequencia_page.dart';
+import 'package:notas_frequencia_flutter/ui/pages/notafrequencia/notafrequencia_turmas_page.dart';
 import 'package:notas_frequencia_flutter/ui/pages/turma/turmas_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24),
             ),
-            onTap:() => _abrirListagemTurma(),
+            onTap: () => _abrirListagemTurma(),
           ),
           ListTile(
             leading: const Icon(Icons.list_outlined),
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24),
             ),
-            onTap:() => _abrirListagemNotasFrenquencia(),
+            onTap: () => _abrirListagemNotasFrenquencia(),
           ),
         ],
       ),
@@ -49,6 +49,8 @@ class _HomePageState extends State<HomePage> {
 
   void _abrirListagemNotasFrenquencia() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const NotaFrequenciaPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => const NotaFrequenciaTurmasPage()));
   }
 }

@@ -37,7 +37,10 @@ class _CadastroTurmaPageState extends State<CadastroTurmaPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome da Turma",icone: Icon(Icons.account_circle)),
+          CampoTexto(
+              controller: _nomeController,
+              texto: "Nome da Turma",
+              icone: Icon(Icons.account_circle)),
           CampoData(
               controller: _dataInicioController,
               texto: "Data início",
@@ -57,6 +60,8 @@ class _CadastroTurmaPageState extends State<CadastroTurmaPage> {
   void _salvarTurma() {
     if (widget.turma != null) {
       widget.turma!.nome = _nomeController.text;
+      widget.turma!.dataInicio = _dataInicioController.text;
+      widget.turma!.dataTermino = _dataTerminoController.text;
       _turmaHelper.alterar(widget.turma!);
     } else {
       _turmaHelper.inserir(Turma(

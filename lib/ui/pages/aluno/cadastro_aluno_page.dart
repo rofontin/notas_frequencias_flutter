@@ -43,7 +43,11 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
       ),
       body: ListView(
         children: [
-          CampoTexto(controller: _nomeController, texto: "Nome do Aluno", icone: Icon(Icons.account_circle),),
+          CampoTexto(
+            controller: _nomeController,
+            texto: "Nome do Aluno",
+            icone: Icon(Icons.account_circle),
+          ),
           CampoTextoMask(
             icone: Icon(Icons.assignment_ind),
             controller: _cpfController,
@@ -63,7 +67,6 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
               fim: 2100),
           ElevatedButton(onPressed: _salvarAluno, child: const Text('Salvar')),
         ],
-
       ),
     );
   }
@@ -71,6 +74,9 @@ class _CadastroAlunoPageState extends State<CadastroAlunoPage> {
   void _salvarAluno() {
     if (widget.aluno != null) {
       widget.aluno!.nome = _nomeController.text;
+      widget.aluno!.cpf = _cpfController.text;
+      widget.aluno!.dataNascimento = _dataNascimentoController.text;
+      widget.aluno!.dataNascimento = _dataMatriculaController.text;
       _alunoHelper.alterar(widget.aluno!);
     } else {
       _alunoHelper.inserir(Aluno(
