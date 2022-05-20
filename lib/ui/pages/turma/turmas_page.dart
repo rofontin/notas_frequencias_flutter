@@ -53,16 +53,20 @@ class _TurmasPageState extends State<TurmasPage> {
             direction: DismissDirection.horizontal,
             child: _criarItemLista(turmas[index]),
             background: Container(
-              alignment: const Alignment(-1, 0),
-              color: Colors.blue,
-              child: const Text('Editar Turma',
-                style: TextStyle(color: Colors.white),),
+                alignment: const Alignment(-1, 0),
+                color: Colors.blue,
+                child: const Padding(padding: EdgeInsets.only(left: 20.0),
+                  child: Icon(
+                    Icons.drive_file_rename_outline_rounded,size: 40,
+                  ),)
             ),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Text('Excluir Turma',
-                style: TextStyle(color: Colors.white),),
+              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+                child: Icon(
+                  Icons.delete,size: 40,
+                ),),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {
