@@ -65,9 +65,25 @@ class _CadastroProfessorPageState extends State<CadastroProfessorPage> {
               fim: 2100),
           ElevatedButton(
               onPressed: _salvarProfessor, child: const Text('Salvar')),
+          _criarBotaoExcluir(),
         ],
       ),
     );
+  }
+
+  Widget _criarBotaoExcluir() {
+    if (widget.professor != null) {
+      return ElevatedButton(
+          onPressed: _excluirProfessor,
+          child: const Text('Excluir')
+      );
+    }
+    return Container();
+  }
+
+  void _excluirProfessor() {
+    _professorHelper.delete(widget.professor!);
+    Navigator.pop(context);
   }
 
   void _salvarProfessor() {

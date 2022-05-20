@@ -28,10 +28,10 @@ class ProfessorHelper {
         where: '$professorRegistro = ?', whereArgs: [professor.registro]);
   }
 
-  Future<int> delete(int registro) async {
+  Future<int> delete(Professor professor) async {
     Database db = await BancoDados().db;
     return db.delete(professorTabela,
-        where: '$professorRegistro = ?', whereArgs: [registro]);
+        where: '$professorRegistro = ?', whereArgs: [professor.registro]);
   }
 
   Future<Professor?> findProfessor(int registro) async {

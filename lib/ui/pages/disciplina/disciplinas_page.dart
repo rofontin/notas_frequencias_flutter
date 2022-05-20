@@ -3,6 +3,7 @@ import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
+import 'package:notas_frequencia_flutter/ui/components/mensagem_alerta.dart';
 import 'package:notas_frequencia_flutter/ui/pages/disciplina/cadastro_disciplina.dart';
 
 class DisciplinasPage extends StatefulWidget {
@@ -69,8 +70,52 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
         padding: const EdgeInsets.all(4),
         itemCount: disciplinas.length,
         itemBuilder: (context, index) {
-          return _criarItemLista(disciplinas[index]);
-        });
+          return Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.horizontal,
+            child: _criarItemLista(disciplinas[index]),
+            background: Container(
+              alignment: const Alignment(-1, 0),
+              color: Colors.blue,
+              child: const Text('Editar Disciplina',
+                style: TextStyle(color: Colors.white),),
+            ),
+            secondaryBackground: Container(
+              alignment: const Alignment(1, 0),
+              color: Colors.red,
+              child: const Text('Excluir Disciplina',
+                style: TextStyle(color: Colors.white),),
+            ),
+            onDismissed: (DismissDirection direction) {
+              if (direction == DismissDirection.startToEnd) {
+                _cadastrarDisciplina(disciplina: disciplinas[index]);
+              }
+              else if (direction == DismissDirection.endToStart) {
+                _disciplinaHelper.delete(disciplinas[index]);
+              }
+            },
+            confirmDismiss: (DismissDirection direction) async {
+              if (direction == DismissDirection.endToStart) {
+                return await MensagemAlerta.show(
+                    context: context,
+                    titulo: 'Atenção',
+                    texto: 'Deseja excluir este Disciplina?',
+                    botoes: [
+                      TextButton(
+                          child: const Text('Sim'),
+                          onPressed: (){ Navigator.of(context).pop(true); }
+                      ),
+                      ElevatedButton(
+                          child: const Text('Não'),
+                          onPressed: (){ Navigator.of(context).pop(false); }
+                      ),
+                    ]);
+              }
+              return true;
+            },
+          );
+        }
+    );
   }
 
   Widget _criarItemLista(Disciplina disciplina) {

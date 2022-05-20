@@ -29,10 +29,10 @@ class DisciplinaHelper {
         where: '$disciplinaRegistro = ?', whereArgs: [disciplina.registro]);
   }
 
-  Future<int> delete(int registro) async {
+  Future<int> delete(Disciplina disciplina) async {
     Database db = await BancoDados().db;
     return db.delete(disciplinaTabela,
-        where: '$disciplinaRegistro = ?', whereArgs: [registro]);
+        where: '$disciplinaRegistro = ?', whereArgs: [disciplina.registro]);
   }
 
   Future<Disciplina?> findDisciplina(int registro) async {
