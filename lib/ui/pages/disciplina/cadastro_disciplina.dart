@@ -62,25 +62,10 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
           ),
           ElevatedButton(
               onPressed: _salvarDisciplina, child: const Text('Salvar')),
-          _criarBotaoExcluir(),
         ],
       ),
     );
 
-  }
-  Widget _criarBotaoExcluir() {
-    if (widget.disciplina != null) {
-      return ElevatedButton(
-          onPressed: _excluirDisciplina,
-          child: const Text('Excluir')
-      );
-    }
-    return Container();
-  }
-
-  void _excluirDisciplina() {
-    _disciplinaHelper.delete(widget.disciplina!);
-    Navigator.pop(context);
   }
 
   Widget _getDropdownButtonHideUnderline() {

@@ -129,7 +129,6 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
           )
         ),
       ),
-      onTap: () => _cadastrarProfessor(professor: professor),
     );
   }
 }
