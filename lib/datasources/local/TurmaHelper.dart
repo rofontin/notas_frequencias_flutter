@@ -23,10 +23,10 @@ class TurmaHelper {
         where: '$turmaRegistro = ?', whereArgs: [turma.registro]);
   }
 
-  Future<int> delete(int registro) async {
+  Future<int> delete(Turma turma) async {
     Database db = await BancoDados().db;
     return db.delete(turmaTabela,
-        where: '$turmaRegistro = ?', whereArgs: [registro]);
+        where: '$turmaRegistro = ?', whereArgs: [turma.registro]);
   }
 
   Future<Turma?> findTurma(int registro) async {
