@@ -34,7 +34,6 @@ class _CadastroDisciplinaPageState extends State<CadastroDisciplinaPage> {
     if (widget.disciplina != null) {
       _nomeController.text = widget.disciplina!.nome;
       _cargaHorarioController.text = widget.disciplina!.cargaHoraria.toString();
-      _professorSelecionado = widget.professor;
     }
   }
 
