@@ -69,6 +69,17 @@ class NotaFrequenciaHelper {
     return dados.map((e) => NotaFrequencia.fromMap(e)).toList();
   }
 
+  Future<List<NotaFrequencia>> getByTurmaAndAluno(int registroTurma, int registroAluno) async {
+    Database db = await BancoDados().db;
+
+    List dados = await db.query(notaFrequenciaTabela,
+        where: '$notaFrequenciaTurma = ? and $notaFrequenciaAluno = ?',
+        whereArgs: [registroTurma, registroAluno],
+        orderBy: notaFrequenciaRegistro);
+
+    return dados.map((e) => NotaFrequencia.fromMap(e)).toList();
+  }
+
   Future<List<NotaFrequencia>> findAll() async {
     Database db = await BancoDados().db;
     List lista = await db.rawQuery('SELECT * FROM $notaFrequenciaTabela');

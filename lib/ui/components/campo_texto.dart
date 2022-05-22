@@ -5,9 +5,10 @@ class CampoTexto extends StatelessWidget {
   final String texto;
   final TextInputType? teclado;
   final Icon icone;
+  final bool? readOnly;
 
   const CampoTexto(
-      {required this.controller, required this.texto, this.teclado, Key? key, required this.icone})
+      {required this.controller, required this.texto, this.teclado, Key? key, required this.icone, this.readOnly})
       : super(key: key);
 
   @override
@@ -21,6 +22,7 @@ class CampoTexto extends StatelessWidget {
           icon: icone,
           labelText: texto,
         ),
+        readOnly: readOnly?? false,
       ),
     );
   }

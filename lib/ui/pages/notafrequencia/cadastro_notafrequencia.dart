@@ -50,13 +50,16 @@ class _CadastroNotaFrequenciaPageState
       body: ListView(
         children: [
           CampoTexto(
-              controller: TextEditingController(text: widget.turma.nome),
-              texto: "Nome da Turma",
-              icone: const Icon(Icons.school)),
+            controller: TextEditingController(text: widget.turma.nome),
+            texto: "Nome da Turma",
+            icone: const Icon(Icons.school),
+            readOnly: true,
+          ),
           CampoTexto(
             controller: TextEditingController(text: widget.aluno.nome),
             texto: "Nome do Aluno",
             icone: const Icon(Icons.account_circle_outlined),
+            readOnly: true,
           ),
           Padding(
             padding: const EdgeInsets.all(16),
@@ -75,7 +78,7 @@ class _CadastroNotaFrequenciaPageState
           ),
           CampoTexto(
             controller: _frequenciaController,
-            texto: "Frequência",
+            texto: "Frequência (horas)",
             icone: const Icon(Icons.book_sharp),
             teclado: TextInputType.number,
           ),

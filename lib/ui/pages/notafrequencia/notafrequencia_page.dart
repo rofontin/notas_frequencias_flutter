@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/models/Aluno.dart';
+import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/NotaFrequencia.dart';
 import 'package:notas_frequencia_flutter/models/Turma.dart';
 import 'package:notas_frequencia_flutter/ui/components/mensagem_alerta.dart';
@@ -19,6 +20,7 @@ class NotaFrequenciaPage extends StatefulWidget {
 
 class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
   final _notaFrequenciaHelper = NotaFrequenciaHelper();
+  final _disciplinaHelper = DisciplinaHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
         onPressed: _cadastrarNotaFrequencia,
       ),
       body: FutureBuilder(
-        future: _notaFrequenciaHelper.findAll(),
+        future: _notaFrequenciaHelper.getByTurmaAndAluno(widget.turma.registro!, widget.aluno.ra!),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -125,34 +127,65 @@ class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
   }
 
   Widget _criarItemLista(NotaFrequencia notaFrequencia) {
-    return GestureDetector(
-      child: Card(
-        child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                const Icon(Icons.note, size: 40),
-                Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Column(
-                    children: [
-                      Text(
-                        notaFrequencia.nota.toString(),
-                        style: const TextStyle(fontSize: 20),
-                        textAlign: TextAlign.center,
-                      ),
-                      // Text(
-                      //   "Data da Matrícula: "+notaFrequencia.dataMatricula,
-                      //   style: const TextStyle(fontSize: 15),
-                      //   textAlign: TextAlign.center,
-                      // )
-                    ],
-                  ),
-                )
-              ],
-            )),
-      ),
-      onTap: () => _cadastrarNotaFrequencia(notaFrequencia: notaFrequencia),
+    return FutureBuilder(
+      future: _disciplinaHelper.findDisciplina(notaFrequencia.registroDisciplina),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const CircularProgressIndicator();
+          default:
+            if (snapshot.hasError) {
+              return Text('Erro:' '${snapshot.error}');
+            }
+            return GestureDetector(
+              child: Card(
+                child: Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.note, size: 40),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Disciplina: "+((snapshot.data) as Disciplina).nome,
+                                style: const TextStyle(fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                _getResultado(notaFrequencia, snapshot.data as Disciplina),
+                                style: const TextStyle(fontSize: 15),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+              onTap: () => _cadastrarNotaFrequencia(notaFrequencia: notaFrequencia),
+            );
+        }
+      },
     );
+  }
+
+  String _getResultado(NotaFrequencia notaFrequencia, Disciplina disciplina) {
+    double nota = notaFrequencia.nota;
+    double frequencia = notaFrequencia.frequencia;
+    int cargaHoraria = disciplina.cargaHoraria;
+    double frequenciaFinal = ((frequencia * 100) / cargaHoraria);
+
+    String resultado = "\nNota: $nota \nFrequência: $frequenciaFinal%";
+    if (nota >= 70.0 && frequenciaFinal >= 30.0) {
+      return "Aprovado" + resultado;
+    } else if (nota < 70.0) {
+      return "Reprovado por nota." + resultado;
+    } else if (frequenciaFinal < 30.0) {
+      return "Reprovado por frequência." + resultado;
+    }
+    return "";
   }
 }
