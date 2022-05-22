@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MensagemAlerta {
-  static Future show({required BuildContext context, required String titulo,
-    required String texto, required List<Widget> botoes}) {
-
+  static Future show(
+      {required BuildContext context,
+      required String titulo,
+      required String texto,
+      required List<Widget> botoes}) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -12,7 +14,6 @@ class MensagemAlerta {
             content: Text(texto),
             actions: botoes,
           );
-        }
-    );
+        });
   }
 }

@@ -69,7 +69,8 @@ class NotaFrequenciaHelper {
     return dados.map((e) => NotaFrequencia.fromMap(e)).toList();
   }
 
-  Future<List<NotaFrequencia>> getByTurmaAndAluno(int registroTurma, int registroAluno) async {
+  Future<List<NotaFrequencia>> getByTurmaAndAluno(
+      int registroTurma, int registroAluno) async {
     Database db = await BancoDados().db;
 
     List dados = await db.query(notaFrequenciaTabela,

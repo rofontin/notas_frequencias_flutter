@@ -13,7 +13,8 @@ class CampoTextoMask extends StatelessWidget {
       required this.texto,
       required this.teclado,
       required this.mask,
-      Key? key, required this.icone})
+      Key? key,
+      required this.icone})
       : super(key: key);
 
   @override

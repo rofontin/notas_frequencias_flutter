@@ -23,12 +23,12 @@ class BancoDados {
 
     return await openDatabase(pathDb, version: 1,
         onCreate: (Database db, int version) async {
-          await db.execute(sqlCreateTurma);
-          await db.execute(sqlCreateAluno);
-          await db.execute(sqlCreateProfessor);
-          await db.execute(sqlCreateDisciplina);
-          await db.execute(sqlCreateNotaFrequencia);
-        });
+      await db.execute(sqlCreateTurma);
+      await db.execute(sqlCreateAluno);
+      await db.execute(sqlCreateProfessor);
+      await db.execute(sqlCreateDisciplina);
+      await db.execute(sqlCreateNotaFrequencia);
+    });
   }
 
   void close() async {

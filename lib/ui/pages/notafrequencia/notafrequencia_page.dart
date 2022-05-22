@@ -33,7 +33,8 @@ class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
         onPressed: _cadastrarNotaFrequencia,
       ),
       body: FutureBuilder(
-        future: _notaFrequenciaHelper.getByTurmaAndAluno(widget.turma.registro!, widget.aluno.ra!),
+        future: _notaFrequenciaHelper.getByTurmaAndAluno(
+            widget.turma.registro!, widget.aluno.ra!),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -128,7 +129,8 @@ class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
 
   Widget _criarItemLista(NotaFrequencia notaFrequencia) {
     return FutureBuilder(
-      future: _disciplinaHelper.findDisciplina(notaFrequencia.registroDisciplina),
+      future:
+          _disciplinaHelper.findDisciplina(notaFrequencia.registroDisciplina),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -150,12 +152,14 @@ class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
                           child: Column(
                             children: [
                               Text(
-                                "Disciplina: "+((snapshot.data) as Disciplina).nome,
+                                "Disciplina: " +
+                                    ((snapshot.data) as Disciplina).nome,
                                 style: const TextStyle(fontSize: 20),
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                _getResultado(notaFrequencia, snapshot.data as Disciplina),
+                                _getResultado(notaFrequencia,
+                                    snapshot.data as Disciplina),
                                 style: const TextStyle(fontSize: 15),
                                 textAlign: TextAlign.center,
                               )

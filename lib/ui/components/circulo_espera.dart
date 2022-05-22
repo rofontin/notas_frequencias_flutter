@@ -13,7 +13,10 @@ class CirculoEspera extends StatelessWidget {
           strokeWidth: 7,
           valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
         ),
-        Text("Aguarde...", style: TextStyle(fontSize: 28),)
+        Text(
+          "Aguarde...",
+          style: TextStyle(fontSize: 28),
+        )
       ],
     ));
   }

@@ -16,16 +16,15 @@ class ProfessoresPage extends StatefulWidget {
 
 class _ProfessoresPageState extends State<ProfessoresPage> {
   final _professorHelper = ProfessorHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.turma.nome+" - Professores"),
+        title: Text(widget.turma.nome + " - Professores"),
       ),
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: _cadastrarProfessor
-      ),
+          child: const Icon(Icons.add), onPressed: _cadastrarProfessor),
       body: FutureBuilder(
           future: _professorHelper.getByTurma(widget.turma.registro ?? 0),
           builder: (context, snapshot) {
@@ -42,12 +41,19 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
           }),
     );
   }
+
   void _cadastrarProfessor({Professor? professor}) async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => CadastroProfessorPage(professor: professor, turma: widget.turma,)));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CadastroProfessorPage(
+                  professor: professor,
+                  turma: widget.turma,
+                )));
 
     setState(() {});
   }
+
   Widget _criarLista(List<Professor> professor) {
     return ListView.builder(
         padding: const EdgeInsets.all(4),
@@ -60,24 +66,28 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
             background: Container(
                 alignment: const Alignment(-1, 0),
                 color: Colors.blue,
-                child: const Padding(padding: EdgeInsets.only(left: 20.0),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
                   child: Icon(
-                    Icons.drive_file_rename_outline_rounded,size: 40,
-                  ),)
-            ),
+                    Icons.drive_file_rename_outline_rounded,
+                    size: 40,
+                  ),
+                )),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 20.0),
                 child: Icon(
-                  Icons.delete,size: 40,
-                ),),
+                  Icons.delete,
+                  size: 40,
+                ),
+              ),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {
                 _cadastrarProfessor(professor: professor[index]);
-              }
-              else if (direction == DismissDirection.endToStart) {
+              } else if (direction == DismissDirection.endToStart) {
                 _professorHelper.delete(professor[index]);
               }
             },
@@ -90,48 +100,49 @@ class _ProfessoresPageState extends State<ProfessoresPage> {
                     botoes: [
                       TextButton(
                           child: const Text('Sim'),
-                          onPressed: (){ Navigator.of(context).pop(true); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
                       ElevatedButton(
                           child: const Text('Não'),
-                          onPressed: (){ Navigator.of(context).pop(false); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          }),
                     ]);
               }
               return true;
             },
           );
-        }
-    );
+        });
   }
 
   Widget _criarItemLista(Professor professor) {
     return GestureDetector(
       child: Card(
         child: Container(
-          padding: const EdgeInsets.all(16),
-          child:Row(
-            children: [
-              const Icon(Icons.account_circle_outlined,size: 40),
-              Padding(padding: const EdgeInsets.only(left: 50),
-                child: Column(
-                  children: [
-                    Text(
-                      professor.nome,
-                      style: const TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      "Data de Adesão: "+professor.dataAdesao,
-                      style: const TextStyle(fontSize: 15),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),)
-
-            ],
-          )
-        ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                const Icon(Icons.account_circle_outlined, size: 40),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
+                  child: Column(
+                    children: [
+                      Text(
+                        professor.nome,
+                        style: const TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Data de Adesão: " + professor.dataAdesao,
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )),
       ),
     );
   }

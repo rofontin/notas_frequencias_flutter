@@ -17,7 +17,7 @@ class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Turma de '+ widget.turma.nome),
+        title: Text('Turma de ' + widget.turma.nome),
       ),
       body: ListView(
         children: [
@@ -28,7 +28,7 @@ class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24),
             ),
-            onTap:() => _abrirListagemProfessores(widget.turma),
+            onTap: () => _abrirListagemProfessores(widget.turma),
           ),
           ListTile(
             leading: const Icon(Icons.list_outlined),
@@ -37,7 +37,7 @@ class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24),
             ),
-            onTap:() => _abrirListagemAlunos(widget.turma),
+            onTap: () => _abrirListagemAlunos(widget.turma),
           ),
           ListTile(
             leading: const Icon(Icons.list_outlined),
@@ -46,7 +46,7 @@ class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24),
             ),
-            onTap:() => _abrirListagemDisciplinas(widget.turma),
+            onTap: () => _abrirListagemDisciplinas(widget.turma),
           ),
         ],
       ),
@@ -55,7 +55,11 @@ class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
 
   void _abrirListagemProfessores(Turma turma) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ProfessoresPage(turma: turma,)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProfessoresPage(
+                  turma: turma,
+                )));
   }
 
   void _abrirListagemAlunos(Turma turma) {
@@ -64,7 +68,7 @@ class _RelacionadosTurmaPageState extends State<RelacionadosTurmaPage> {
   }
 
   void _abrirListagemDisciplinas(Turma turma) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DisciplinasPage(turma)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DisciplinasPage(turma)));
   }
 }

@@ -22,7 +22,7 @@ class _AlunosPageState extends State<AlunosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.turma.nome+" - Alunos"),
+        title: Text(widget.turma.nome + " - Alunos"),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -47,8 +47,13 @@ class _AlunosPageState extends State<AlunosPage> {
   }
 
   void _cadastrarAluno({Aluno? aluno}) async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => CadastroAlunoPage(widget.turma, aluno: aluno,)));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CadastroAlunoPage(
+                  widget.turma,
+                  aluno: aluno,
+                )));
 
     setState(() {});
   }
@@ -63,26 +68,30 @@ class _AlunosPageState extends State<AlunosPage> {
             direction: DismissDirection.horizontal,
             child: _criarItemLista(alunos[index]),
             background: Container(
-              alignment: const Alignment(-1, 0),
-              color: Colors.blue,
-              child: const Padding(padding: EdgeInsets.only(left: 20.0),
-              child: Icon(
-                Icons.drive_file_rename_outline_rounded,size: 40,
-              ),)
-            ),
+                alignment: const Alignment(-1, 0),
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: Icon(
+                    Icons.drive_file_rename_outline_rounded,
+                    size: 40,
+                  ),
+                )),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 20.0),
                 child: Icon(
-                  Icons.delete,size: 40,
-                ),),
+                  Icons.delete,
+                  size: 40,
+                ),
+              ),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {
                 _cadastrarAluno(aluno: alunos[index]);
-              }
-              else if (direction == DismissDirection.endToStart) {
+              } else if (direction == DismissDirection.endToStart) {
                 _alunoHelper.delete(alunos[index]);
               }
             },
@@ -95,19 +104,20 @@ class _AlunosPageState extends State<AlunosPage> {
                     botoes: [
                       TextButton(
                           child: const Text('Sim'),
-                          onPressed: (){ Navigator.of(context).pop(true); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
                       ElevatedButton(
                           child: const Text('Não'),
-                          onPressed: (){ Navigator.of(context).pop(false); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          }),
                     ]);
               }
               return true;
             },
           );
-        }
-    );
+        });
   }
 
   Widget _criarItemLista(Aluno aluno) {
@@ -115,10 +125,11 @@ class _AlunosPageState extends State<AlunosPage> {
       child: Card(
         child: Container(
             padding: const EdgeInsets.all(16),
-            child:Row(
+            child: Row(
               children: [
-                const Icon(Icons.account_circle_outlined,size: 40),
-                Padding(padding: const EdgeInsets.only(left: 50),
+                const Icon(Icons.account_circle_outlined, size: 40),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
                   child: Column(
                     children: [
                       Text(
@@ -127,16 +138,15 @@ class _AlunosPageState extends State<AlunosPage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "Data da Matrícula: "+aluno.dataMatricula,
+                        "Data da Matrícula: " + aluno.dataMatricula,
                         style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       )
                     ],
-
-                  ),)
+                  ),
+                )
               ],
-            )
-        ),
+            )),
       ),
     );
   }

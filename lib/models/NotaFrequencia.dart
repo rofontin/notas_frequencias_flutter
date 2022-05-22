@@ -14,14 +14,14 @@ class NotaFrequencia {
   double nota;
   double frequencia;
 
-  NotaFrequencia(
-      {this.registro,
-        required this.registroTurma,
-        required this.registroAluno,
-        required this.registroDisciplina,
-        required this.nota,
-        required this.frequencia,
-      });
+  NotaFrequencia({
+    this.registro,
+    required this.registroTurma,
+    required this.registroAluno,
+    required this.registroDisciplina,
+    required this.nota,
+    required this.frequencia,
+  });
 
   factory NotaFrequencia.fromMap(Map map) {
     return NotaFrequencia(

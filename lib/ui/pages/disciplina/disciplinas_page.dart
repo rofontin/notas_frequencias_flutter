@@ -50,7 +50,8 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
   void _cadastrarDisciplina({Disciplina? disciplina}) async {
     Professor? professor;
     if (disciplina != null) {
-      professor = await _professorHelper.findProfessor(disciplina.registroProfessor);
+      professor =
+          await _professorHelper.findProfessor(disciplina.registroProfessor);
     }
 
     await Navigator.push(
@@ -77,24 +78,28 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
             background: Container(
                 alignment: const Alignment(-1, 0),
                 color: Colors.blue,
-                child: const Padding(padding: EdgeInsets.only(left: 20.0),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
                   child: Icon(
-                    Icons.drive_file_rename_outline_rounded,size: 40,
-                  ),)
-            ),
+                    Icons.drive_file_rename_outline_rounded,
+                    size: 40,
+                  ),
+                )),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 20.0),
                 child: Icon(
-                  Icons.delete,size: 40,
-                ),),
+                  Icons.delete,
+                  size: 40,
+                ),
+              ),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {
                 _cadastrarDisciplina(disciplina: disciplinas[index]);
-              }
-              else if (direction == DismissDirection.endToStart) {
+              } else if (direction == DismissDirection.endToStart) {
                 _disciplinaHelper.delete(disciplinas[index]);
               }
             },
@@ -107,19 +112,20 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                     botoes: [
                       TextButton(
                           child: const Text('Sim'),
-                          onPressed: (){ Navigator.of(context).pop(true); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
                       ElevatedButton(
                           child: const Text('Não'),
-                          onPressed: (){ Navigator.of(context).pop(false); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          }),
                     ]);
               }
               return true;
             },
           );
-        }
-    );
+        });
   }
 
   Widget _criarItemLista(Disciplina disciplina) {

@@ -55,24 +55,28 @@ class _TurmasPageState extends State<TurmasPage> {
             background: Container(
                 alignment: const Alignment(-1, 0),
                 color: Colors.blue,
-                child: const Padding(padding: EdgeInsets.only(left: 20.0),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
                   child: Icon(
-                    Icons.drive_file_rename_outline_rounded,size: 40,
-                  ),)
-            ),
+                    Icons.drive_file_rename_outline_rounded,
+                    size: 40,
+                  ),
+                )),
             secondaryBackground: Container(
               alignment: const Alignment(1, 0),
               color: Colors.red,
-              child: const Padding(padding: EdgeInsets.only(right: 20.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 20.0),
                 child: Icon(
-                  Icons.delete,size: 40,
-                ),),
+                  Icons.delete,
+                  size: 40,
+                ),
+              ),
             ),
             onDismissed: (DismissDirection direction) {
               if (direction == DismissDirection.startToEnd) {
                 _abrirTelaCadastro(turma: turmas[index]);
-              }
-              else if (direction == DismissDirection.endToStart) {
+              } else if (direction == DismissDirection.endToStart) {
                 _turmaHelper.delete(turmas[index]);
               }
             },
@@ -85,19 +89,20 @@ class _TurmasPageState extends State<TurmasPage> {
                     botoes: [
                       TextButton(
                           child: const Text('Sim'),
-                          onPressed: (){ Navigator.of(context).pop(true); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
                       ElevatedButton(
                           child: const Text('Não'),
-                          onPressed: (){ Navigator.of(context).pop(false); }
-                      ),
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          }),
                     ]);
               }
               return true;
             },
           );
-        }
-    );
+        });
   }
 
   Widget _criarItemLista(Turma turma) {
@@ -105,10 +110,11 @@ class _TurmasPageState extends State<TurmasPage> {
       child: Card(
         child: Container(
             padding: const EdgeInsets.all(16),
-            child:Row(
+            child: Row(
               children: [
-                const Icon(Icons.school,size: 40),
-                Padding(padding: const EdgeInsets.only(left: 50),
+                const Icon(Icons.school, size: 40),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
                   child: Column(
                     children: [
                       Text(
@@ -117,16 +123,15 @@ class _TurmasPageState extends State<TurmasPage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "Data Término: "+turma.dataTermino  ,
+                        "Data Término: " + turma.dataTermino,
                         style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       )
                     ],
-                  ),)
-
+                  ),
+                )
               ],
-            )
-        ),
+            )),
       ),
       onTap: () => _abrirPaginaTurma(turma),
       onLongPress: () => _abrirTelaCadastro(turma: turma),
@@ -143,7 +148,7 @@ class _TurmasPageState extends State<TurmasPage> {
   }
 
   void _abrirPaginaTurma(Turma turma) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RelacionadosTurmaPage(turma)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => RelacionadosTurmaPage(turma)));
   }
 }

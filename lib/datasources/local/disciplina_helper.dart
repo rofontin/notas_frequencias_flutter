@@ -1,4 +1,3 @@
-import 'package:notas_frequencia_flutter/datasources/datasources.dart';
 import 'package:notas_frequencia_flutter/datasources/local/banco_dados.dart';
 import 'package:notas_frequencia_flutter/models/Disciplina.dart';
 import 'package:notas_frequencia_flutter/models/Professor.dart';
