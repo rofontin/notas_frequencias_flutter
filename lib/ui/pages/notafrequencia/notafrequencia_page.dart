@@ -165,7 +165,6 @@ class _NotaFrequenciaPageState extends State<NotaFrequenciaPage> {
                       ],
                     )),
               ),
-              onTap: () => _cadastrarNotaFrequencia(notaFrequencia: notaFrequencia),
             );
         }
       },
